@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.Scanner;
 
 public class Main {
@@ -32,34 +33,34 @@ public class Main {
 
     public static void convertFromDec() {
         System.out.print("Enter number in decimal system: ");
-        int decNumber = scanner.nextInt();
+        BigInteger decNumber = scanner.nextBigInteger();
         System.out.print("Enter target base: ");
-        int targetBase = scanner.nextInt();
+        BigInteger targetBase = scanner.nextBigInteger();
 
         String result = "";
-        int number = decNumber;
-        while (number > 0) {
-            int digit = number % targetBase;
+        BigInteger number = new BigInteger(decNumber.toString());
+        while (number.compareTo(BigInteger.ZERO) > 0) {
+            BigInteger digit = number.mod(targetBase);
 
-            if (targetBase == 16 && digit >= 10) {
+            if (targetBase.compareTo(new BigInteger("16")) == 0 && digit.compareTo(BigInteger.TEN) >= 0) {
                 String r;
-                switch (digit) {
-                    case 10:
+                switch (digit.toString()) {
+                    case "10":
                         r = "A";
                         break;
-                    case 11:
+                    case "11":
                         r = "B";
                         break;
-                    case 12:
+                    case "12":
                         r = "C";
                         break;
-                    case 13:
+                    case "13":
                         r = "D";
                         break;
-                    case 14:
+                    case "14":
                         r = "E";
                         break;
-                    case 15:
+                    case "15":
                         r = "F";
                         break;
                     default:
@@ -70,7 +71,7 @@ public class Main {
                 result = digit + result;
             }
 
-            number /= targetBase;
+            number = number.divide(targetBase);
         }
 
         System.out.printf("Conversion result: %s", result);
@@ -80,9 +81,9 @@ public class Main {
         System.out.print("Enter source number: ");
         String sourceNumber = scanner.nextLine();
         System.out.print("Enter source base: ");
-        int sourceBase = scanner.nextInt();
+        BigInteger sourceBase = scanner.nextBigInteger();
 
-        int result = 0;
+        BigInteger result = BigInteger.ZERO;
         int power = 0;
         sourceNumber = new StringBuilder(sourceNumber).reverse().toString();
         for(char c : sourceNumber.toCharArray()) {
@@ -111,9 +112,9 @@ public class Main {
                     digit = Character.getNumericValue(c);
             }
 
-            int multiplicator = (int) Math.pow(sourceBase, power);
-            digit *= multiplicator;
-            result += digit;
+            BigInteger multiplicator = sourceBase.pow(power);
+            BigInteger d = multiplicator.multiply(BigInteger.valueOf(digit));
+            result = result.add(d);
             power++;
         }
 

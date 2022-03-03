@@ -20,7 +20,11 @@ public class Converter {
             String fracPart = convertFractionalFromDec(fractionalPart, targetBase);
             if (fracPart.length() > 5) {
                 fracPart = fracPart.substring(0, 5);
-            }
+            } else {
+				while (fracPart.length() < 5) {
+					fracPart += "0";
+				}
+			}
 
             result += "." + fracPart;
         }

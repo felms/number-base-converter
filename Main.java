@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Scanner;
 
@@ -28,14 +29,13 @@ public class Main {
                     } else {
                         String result;
                         if (s[1].equals("10")) {
-                            result = Converter.convertToDec(c, new BigInteger(s[0])).toString();
+                            result = Converter.convertToDec(c, Integer.valueOf(s[0])).toString();
                         } else if (s[0].equals("10")) {
-                            result = Converter.convertFromDec(new BigInteger(c), new BigInteger(s[1]));
+                            result = Converter.convertFromDec(new BigDecimal(c), Integer.parseInt(s[1]));
                         } else {
-                            BigInteger aux = Converter.convertToDec(c, new BigInteger(s[0]));
-                            result = Converter.convertFromDec(aux, new BigInteger(s[1]));
-                        }
-
+                            BigDecimal aux = Converter.convertToDec(c, Integer.parseInt(s[0]));
+                            result = Converter.convertFromDec(aux, Integer.parseInt(s[1]));
+                        }                        
                         System.out.printf("Conversion result: %s", result);
                     }
                 }
